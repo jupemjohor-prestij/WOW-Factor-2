@@ -1,0 +1,37 @@
+!table
+!version 650
+!charset WindowsLatin1
+
+Definition Table
+  Type NATIVE Charset "WindowsLatin1"
+  Fields 24
+    NOFAILUKUR Char (30) ;
+    NOPW Char (15) ;
+    KOD_JENIS_WARTA Char (10) ;
+    KETERANGAN_JENIS_WARTA Char (50) ;
+    KETERANGAN Char (100) ;
+    PERUNDANGAN Char (10) ;
+    PERUNDANGAN_KETERANGAN Char (100) ;
+    KATEGORI_WARTA Char (10) ;
+    TUJUAN_WARTA Char (200) ;
+    NOWARTA Char (20) ;
+    NAMA_WARTA Char (100) ;
+    KOD_WARTA Char (15) ;
+    TARIKH_WARTA Date ;
+    NODW Char (15) ;
+    NOHW Char (15) ;
+    REVOCATION_FROM Char (15) ;
+    NOSKALA Decimal (12, 0) ;
+    NAMA_AGENSI Char (100) ;
+    NAMA_PEMOHON Char (100) ;
+    RUJ_FAIL_PEMOHON Char (100) ;
+    TARIKH_KEMASKINI Date ;
+    MI_PRINX Decimal (13, 0) ;
+    NOPU Char (25) ;
+    CATATAN Char (254) ;
+begin_metadata
+"\MapInfo" = ""
+"\MapInfo\TableID" = "7dc8d3c2-d890-4494-8e9e-b8f9fa37c62d"
+"\MapInfo\ParentTableID" = "dfbe9700-675a-409e-ac5f-2938aa1a11ff"
+"\IsReadOnly" = "FALSE"
+end_metadata
