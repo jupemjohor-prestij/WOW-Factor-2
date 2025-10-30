@@ -64,7 +64,7 @@
         </div>
     </div>
 
-    <div style="position: absolute; top: 10px; left: 10px; background: white; z-index: 1000; padding: 10px; border-radius: 5px; box-shadow: 0 1px 5px rgba(0,0,0,0.4);">
+    <!-- <div style="position: absolute; top: 10px; left: 10px; background: white; z-index: 1000; padding: 10px; border-radius: 5px; box-shadow: 0 1px 5px rgba(0,0,0,0.4);">
         <h4 style="margin-top: 0;">Layer Manager</h4>
         <button id="new-fc" class="btn btn-primary btn-sm">New Layer</button>
         <button id="import-fc" class="btn btn-success btn-sm">Import GeoJSON</button>
@@ -78,7 +78,23 @@
             <button id="download-shp" class="btn btn-info btn-xs">Download SHP</button>
             <button id="delete-fc" class="btn btn-danger btn-xs">Delete Layer</button>
         </div>
+    </div> -->
+
+    <div class="custom-control-container"> 
+    <h4 style="margin-top: 0;">Layer Manager</h4>
+    <button id="new-fc" class="btn btn-primary btn-sm">New Layer</button>
+    <button id="import-fc" class="btn btn-success btn-sm">Import GeoJSON</button>
+    <hr style="margin: 10px 0;">
+    <div id="layerBox">
+        <p>No editable layers loaded.</p>
     </div>
+    <hr style="margin: 10px 0;">
+    <div id="download-tools" style="display: flex; gap: 5px;">
+         <a id="download-geojson" class="btn btn-info btn-xs" href="#">Download GeoJSON</a>
+         <button id="download-shp" class="btn btn-info btn-xs">Download SHP</button>
+         <button id="delete-fc" class="btn btn-danger btn-xs">Delete Layer</button>
+    </div>
+</div>
     
     <div id="lat-lng-pane">Lat: 0.000000, Long: 0.000000</div>
 
