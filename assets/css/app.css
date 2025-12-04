@@ -1,10 +1,183 @@
-/* Styles from your original HTML */
-#map { position: absolute; top: 0; bottom: 0; right: 0; left: 0; }
-.feature-row { cursor: pointer; }
-.feature-row:hover { background-color: #f5f5f5; }
+/* --- BOOTLEAF BASE LAYOUT RULES --- */
+html, body, #container {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
 
-/* Styles required for Script 2's custom UI */
-/* LAT/LONG must be adjusted higher now that the Layer Manager is above it */
+/* FIX: This rule is essential for pushing the content below the fixed navbar */
+body {
+    padding-top: 50px; 
+}
+/* ---------------------------------- */
+
+input[type="radio"], input[type="checkbox"] {
+    margin: 0;
+}
+#sidebar {
+    display: block;
+    width: 250px;
+    height: 100%;
+    max-width: 100%;
+    float: left;
+}
+#map {
+    width: auto;
+    height: 100%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    /* #map's position is now relative to the body padding, so no absolute top needed */
+}
+#loading {
+    position: absolute;
+    width: 220px;
+    height: 19px;
+    top: 50%;
+    left: 50%;
+    margin: -10px 0 0 -110px;
+    z-index: 20001;
+}
+#features {
+    margin: 0px;
+    border: none;
+    border-radius: 0px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+#sidebar-hide-btn {
+    margin-top: -2px;
+}
+#aboutTabsContent {
+    padding-top: 10px;
+}
+.progress-bar-full {
+    width: 100%;
+}
+.white {
+    color: #FFFFFF;
+}
+.panel-heading{
+    width: 250px;
+}
+.panel-body{
+    width: 250px;
+}
+.feature-row {
+    cursor: pointer;
+    width: 250px;
+}
+.sidebar-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.sidebar-table {
+    position: absolute;
+    width: 100%;
+    top: 103px;
+    bottom: 0px;
+    overflow: auto;
+}
+/* --- LEAFLET CONTROL STYLES --- */
+.leaflet-control-layers {
+    overflow: auto;
+}
+.leaflet-control-layers label {
+    font-weight: normal;
+    margin-bottom: 0px;
+}
+.leaflet-control-layers-list input[type="radio"], input[type="checkbox"] {
+    margin: 2px;
+}
+/* ------------------------------- */
+.table {
+    margin-bottom: 0px;
+}
+.navbar .navbar-brand {
+    font-weight: bold;
+    font-size: 25px;
+    color: #FFFFFF;
+}
+.navbar-collapse.in {
+    overflow-y: hidden;
+}
+.navbar-header .navbar-icon-container {
+    margin-right: 15px;
+}
+.navbar-header .navbar-icon {
+    line-height: 50px;
+    height: 50px;
+}
+.navbar-header a.navbar-icon {
+    margin-left: 25px;
+}
+.typeahead {
+    background-color: #FFFFFF;
+}
+.tt-dropdown-menu {
+    background-color: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    margin-top: 4px;
+    padding: 4px 0;
+    width: 100%;
+    max-height: 300px;
+    overflow: auto;
+}
+.tt-suggestion {
+    font-size: 14px;
+    line-height: 20px;
+    padding: 3px 10px;
+}
+.tt-suggestion.tt-cursor {
+    background-color: #0097CF;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+.tt-suggestion p {
+    margin: 0;
+}
+.tt-suggestion + .tt-suggestion {
+    border-top: 1px solid #ccc;
+}
+.typeahead-header {
+    margin: 0 5px 5px 5px;
+    padding: 3px 0;
+    border-bottom: 2px solid #333;
+}
+.has-feedback .form-control-feedback {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: block;
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+}
+@media (max-width: 992px) {
+    .navbar .navbar-brand {
+        font-size: 18px;
+    }
+}
+@media (max-width: 767px){
+    #sidebar {
+        display: none;
+    }
+    .url-break {
+        word-break: break-all;
+        word-break: break-word;
+        -webkit-hyphens: auto;
+        hyphens: auto;
+    }
+    .dropdown-menu a i{
+        color: #FFFFFF;
+    }
+}
+
+/* --- CUSTOM GIS UI STYLES (Your Layer Manager & Edit Pane) --- */
+
+/* LAT/LONG Coordinate Display */
 #lat-lng-pane { 
     position: absolute; 
     bottom: 5px; 
@@ -15,35 +188,36 @@
     display: none; 
 }
 
-/* Custom Layer Box & Buttons (Needs styling to look like a proper GIS editor) */
-#layerBox { padding: 10px; background: #fff; border-top: 1px solid #ddd; max-height: 200px; overflow-y: auto; }
-.geojson-layer { display: flex; align-items: center; padding: 5px 0; border-bottom: 1px dotted #eee; }
-.geojson-layer > input[type="checkbox"] { margin-right: 5px; }
-.layer-btn { background: none; border: none; padding: 0 5px; cursor: pointer; color: #38f; }
-.style-patch { cursor: pointer; margin-right: 5px; width: 22px; height: 22px; display: inline-block; }
-.style-patch svg { width: 100%; height: 100%; }
-
-/* Edit Pane Styling (Needs significant CSS, adding basics here) */
-#edit-pane { position: absolute; top: 0; right: 0; width: 300px; height: 100%; background: white; z-index: 1001; box-shadow: -2px 0 5px rgba(0,0,0,0.2); display: none; padding: 15px; overflow-y: auto; }
+/* Edit Pane Styling */
+#edit-pane { 
+    position: absolute; 
+    top: 0; 
+    right: 0; 
+    width: 300px; 
+    height: 100%; 
+    background: white; 
+    z-index: 1001; 
+    box-shadow: -2px 0 5px rgba(0,0,0,0.2); 
+    display: none; 
+    padding: 15px; 
+    overflow-y: auto; 
+}
 #attribute-pane li { list-style: none; margin-bottom: 10px; }
 #attribute-pane label { display: block; font-weight: bold; }
 #attribute-pane input[type="text"] { width: 100%; padding: 5px; border: 1px solid #ccc; }
 #close-edit-pane { float: right; }
 
-/* --- CONTROL POSITIONING --- */
 
-/* 1. CUSTOM LAYER MANAGER (Your Buttons/Layer List) -> BOTTOM-LEFT */
+/* --- LEAFLET CONTROL POSITIONING (Your Custom Rules) --- */
+
+/* 1. CUSTOM LAYER MANAGER -> BOTTOM-LEFT (Your Request) */
 .custom-control-container {
     position: absolute; 
-    /* Desktop Default Position: Top-Left (Original) */
-    top: 10px; 
+    top: auto; /* Fixed for bottom positioning */
+    bottom: 40px; /* Above lat/long pane */
     left: 10px; 
+    right: auto; /* Ensures it stays left */
     
-    /* NEW: Override for Bottom-Left Positioning */
-    top: auto; 
-    bottom: 40px; /* Above lat/long pane and off the bottom edge */
-    
-    /* Standard styles */
     background: white; 
     z-index: 1000; 
     padding: 10px; 
@@ -51,34 +225,69 @@
     box-shadow: 0 1px 5px rgba(0,0,0,0.4);
 }
 
-/* 2. GEOMAN CONTROLS (PM Toolbar) -> TOP-LEFT (Default) */
-/* 3. LEAFLET LAYER CONTROL -> TOP-RIGHT (Leaflet's default position) */
+/* --- LAYER MANAGER SPACING FIX (NEW/MODIFIED RULES) --- */
 
-/* --- MOBILE LAYOUT REPAIR (Ensures no overlap and maintains corner rules) --- */
+/* 1. Define how the dynamic layer list items look */
+.geojson-layer {
+    /* Ensures items are aligned vertically in a compact space */
+    display: flex;
+    align-items: center; 
+    padding: 2px 0; /* Reduced vertical padding */
+    border-bottom: 1px solid #eee;
+    font-size: 13px; /* Slightly smaller font size for compactness */
+    line-height: 1.5;
+    white-space: nowrap; /* Prevents layer names from wrapping */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 2. Style the visual patch (the geometry icon) */
+.geojson-layer .style-patch {
+    width: 20px; /* Reduced width */
+    height: 14px; /* Reduced height */
+    margin-right: 5px; /* Reduced space after the icon */
+    cursor: pointer;
+    flex-shrink: 0; /* Prevents the patch from shrinking on overflow */
+}
+
+/* 3. Style the layer name text and checkbox spacing */
+.geojson-layer > input[type="checkbox"] {
+    margin-right: 5px; /* Reduced space after checkbox */
+    margin-top: 0;
+}
+
+/* 4. Style the action buttons (Draw/Settings) */
+.geojson-layer .layer-btn {
+    /* Adjust button padding/margin to pull them closer to the name */
+    margin-left: 5px;
+    padding: 1px 3px; 
+    border: none;
+    background: none;
+    cursor: pointer;
+    flex-shrink: 0; /* Prevents buttons from shrinking */
+}
+
+/* --- MOBILE LAYOUT REPAIR (Ensures separation on small screens) --- */
 @media (max-width: 767px) {
     
-    /* 1. Custom Layer Manager: Stays Bottom-Left, but ensure it's not too wide */
+    /* Shrink Geoman icons slightly on mobile to take up less space */
+    .leaflet-pm-toolbar {
+        transform: scale(0.85); 
+        transform-origin: top left;
+    }
+    
+    /* Custom Layer Manager is already fixed to Bottom-Left */
     .custom-control-container {
-        left: 10px !important; 
-        right: auto !important; 
         max-width: 90%; 
     }
-    
-    /* 2. Geoman Controls: Stays Top-Left (Leaflet's default placement for 'topleft' works fine) */
-    /* 3. Leaflet Layer Control: Stays Top-Right (Leaflet's default placement for 'topright' works fine) */
-    
-    /* Hide Geoman Toolbar ONLY if the primary goal is zero visual overlap and you are not actively drawing */
-    /* Based on your screenshot, this toolbar is still visible on the top-left on small screens. 
-       If you want it to hide to avoid conflict with other controls, use this: */
-    /*
-    .leaflet-pm-toolbar {
-        display: none !important; 
+}
+
+/* Print Handling */
+@media print {
+    .navbar {
+        display: none !important;
     }
-    */
-    
-    /* If you want Geoman to be smaller on mobile: */
-    .leaflet-pm-toolbar {
-        transform: scale(0.85); /* Shrink the toolbar slightly */
-        transform-origin: top left;
+    .leaflet-control-container {
+        display: none !important;
     }
 }
