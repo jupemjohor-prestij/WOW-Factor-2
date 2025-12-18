@@ -44,13 +44,13 @@
         var basemapClarity = L.tileLayer("https://clarity.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", basemapOptions);
 
         /* JUPEM Basemap Integration */
-        var jupemToken = "cEbgJlY746HzIQvZrd8-AHkpdwtvE40lSboGEsA-iW42hPJ6D-DsvOdjaTqNKN6DEtqvgQE4Nc0kkMU3wQSm3wGYGwPrPn8xDFjes7yxH1dL6M0daqPkHOOHxAcwnCezFtTEEd9baUCHg126nb2LDUiDE9LDKIpfqGcK0o7ZAQVthjWzWYxjQvbMfpHqosjr";
+        // var jupemToken = "cEbgJlY746HzIQvZrd8-AHkpdwtvE40lSboGEsA-iW42hPJ6D-DsvOdjaTqNKN6DEtqvgQE4Nc0kkMU3wQSm3wGYGwPrPn8xDFjes7yxH1dL6M0daqPkHOOHxAcwnCezFtTEEd9baUCHg126nb2LDUiDE9LDKIpfqGcK0o7ZAQVthjWzWYxjQvbMfpHqosjr";
 
-        var jupemBasemap = L.tileLayer("https://mygeoserve5.jupem.gov.my/imageserver/rest/services/PRODUCTION_CORI/PROD_JUPEM_CORI_BASEMAP/ImageServer/tile/{z}/{y}/{x}?token=" + jupemToken, {
-            maxZoom: 19,
-            maxNativeZoom: 17, 
-            attribution: 'JUPEM CORI BASEMAP'
-        });
+        // var jupemBasemap = L.tileLayer("https://mygeoserve5.jupem.gov.my/imageserver/rest/services/PRODUCTION_CORI/PROD_JUPEM_CORI_BASEMAP/ImageServer/tile/{z}/{y}/{x}?token=" + jupemToken, {
+        //     maxZoom: 19,
+        //     maxNativeZoom: 17, 
+        //     attribution: 'JUPEM CORI BASEMAP'
+        // });
         
         var highlight = L.geoJson(null);
         var highlightStyle = {
@@ -412,6 +412,8 @@
                     else if (hutankeluar.hasLayer(e.target)) { hutankeluar.resetStyle(e.target); }
                     else if (hutanbaki.hasLayer(e.target)) { hutanbaki.resetStyle(e.target); }
                     else if (RizabMelayu.hasLayer(e.target)) { RizabMelayu.resetStyle(e.target); }
+                    else if (RizabMelayuBaki.hasLayer(e.target)) { RizabMelayuBaki.resetStyle(e.target); }
+                    else if (RizabMelayuKeluar.hasLayer(e.target)) { RizabMelayuKeluar.resetStyle(e.target); }
                     else if (MergastuaAsal.hasLayer(e.target)) { MergastuaAsal.resetStyle(e.target); }
                     else if (MergastuaKeluar.hasLayer(e.target)) { MergastuaKeluar.resetStyle(e.target); }
                     else if (MergastuaBaki.hasLayer(e.target)) { MergastuaBaki.resetStyle(e.target); }
@@ -458,6 +460,36 @@
             onEachFeature: script1OnEachFeature
         });
         $.getJSON("Data/Geojason/V_malay-res.geojson", function (data) { RizabMelayu.addData(data); });
+
+        /// SEMPADAN RIZAB MELAYU BAKI
+        var RizabMelayuBakiColors = {"01":"#ff3135"};
+        var RizabMelayuBaki = L.geoJson(null, {
+            style: function (feature) {
+                // Pastikan 'KOD_JENIS_' wujud dalam data GeoJSON anda
+                return { color: RizabMelayuBakiColors[feature.properties.KOD_JENIS_] || "#fffc31ff", weight: 3, opacity: 1 };
+            },
+            onEachFeature: script1OnEachFeature
+        });
+
+        // FIX: Tukar RizabMelayu.addData kepada RizabMelayuBaki.addData
+        $.getJSON("Data/Geojason/RizabMelayu_Baki.geojson", function (data) { 
+            RizabMelayuBaki.addData(data); 
+        });
+
+        /// SEMPADAN RIZAB MELAYU KELUAR
+        var RizabMelayuKeluarColors = {"01":"#ff3135"};
+        var RizabMelayuKeluar = L.geoJson(null, {
+            style: function (feature) {
+                // Pastikan 'KOD_JENIS_' wujud dalam data GeoJSON anda
+                return { color: RizabMelayuKeluarColors[feature.properties.KOD_JENIS_] || "#ff31cbff", weight: 3, opacity: 1 };
+            },
+            onEachFeature: script1OnEachFeature
+        });
+
+
+        $.getJSON("Data/Geojason/RizabMelayu_Keluar.geojson", function (data) { 
+            RizabMelayuKeluar.addData(data); 
+        });
 
         /// SEMPADAN MERGASTUA ASAL
         var MergastuaAsalColors = {"JOHOR":"#ff3135"};
@@ -910,7 +942,7 @@
             "Topographic (ESRI)": basemapTopographic, 
             "Imagery (ESRI)": basemapImagery, 
             "Clarity (ESRI)": basemapClarity,
-            "JUPEM CORI Basemap": jupemBasemap
+            // "JUPEM CORI Basemap": jupemBasemap
         };
 
         var groupedOverlays = {
@@ -919,6 +951,8 @@
                 "Keluar Hutan Simpan": hutankeluar,
                 "Baki Hutan Simpan": hutanbaki,
                 "Rizab Melayu":RizabMelayu,
+                "Baki Rizab Melayu":RizabMelayuBaki,
+                "Keluar Rizab Melayu":RizabMelayuKeluar,
                 "Mergastua Asal":MergastuaAsal,
                 "Mergastua Keluar":MergastuaKeluar,
                 "Mergastua Baki":MergastuaBaki
