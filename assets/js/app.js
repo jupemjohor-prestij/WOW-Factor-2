@@ -388,11 +388,11 @@
         var script1OnEachFeature = function (feature, layer) { 
             if (feature.properties) {
                 var content = "<table class='table table-striped table-bordered table-condensed'>" +
-    "<tr><th>No. Pelan Warta</th><td>" + (feature.properties.PW || feature.properties.NOPW || 'N/A') + "</td></tr>" +
-    "<tr><th>Keterangan</th><td>" + (feature.properties.NAMA || feature.properties.TUJUAN_WARTA || 'N/A') + "</td></tr>" +
-    "<tr><th>Luas</th><td>" + (feature.properties.LUAS1 || 'N/A') + " " + (feature.properties.UNIT_LUAS1 || '') + "</td></tr>" +
-    "<tr><th>No. Warta (Siaran)</th><td>" + (feature.properties.WK1 || feature.properties.WK2 || feature.properties.WK3 || 'N/A') + "</td></tr>" + // <-- NEW WARTA ROW ADDED HERE
-    "</table>";
+                                "<tr><th>No. Pelan Warta</th><td>" + (feature.properties.PW || feature.properties.NOPW || 'N/A') + "</td></tr>" +
+                                "<tr><th>Keterangan</th><td>" + (feature.properties.NAMA || feature.properties.TUJUAN_WARTA || 'N/A') + "</td></tr>" +
+                                "<tr><th>Luas</th><td>" + (feature.properties.LUAS1 || 'N/A') + " " + (feature.properties.UNIT_LUAS1 || '') + "</td></tr>" +
+                                "<tr><th>No. Warta (Siaran)</th><td>" + (feature.properties.WK1 || feature.properties.WK2 || feature.properties.WK3 || 'N/A') + "</td></tr>" + // <-- NEW WARTA ROW ADDED HERE
+                                "</table>";
                 layer.on({
                     click: function (e) {
                         $("#feature-title").html(feature.properties.Line || feature.properties.NAMA || 'Feature Info');
